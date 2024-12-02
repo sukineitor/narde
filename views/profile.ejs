@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Nardelink</title>
+    <link rel="stylesheet" href="../public/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Your Profile</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/logout">Logout</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="profile-info">
+                <h2>Profile Information</h2>
+                <form action="/profile/update" method="POST">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" value="<%= user.username %>" required>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="<%= user.email %>" required>
+                    
+                    <button type="submit">Update Profile</button>
+                </form>
+            </section>
+
+            <section class="user-links">
+                <h2>Your Links</h2>
+                <% if (links.length > 0) { %>
+                    <% links.forEach(link => { %>
+                        <article class="link">
+                            <h3><a href="<%= link.url %>" target="_blank"><%= link.title %></a></h3>
+                            <p><%= link.description %></p>
+                            <div class="link-meta">
+                                <span>Likes: <%= link.likes %></span>
+                                <span>Expires: <%= link.expires_at.toLocaleDateString() %></span>
+                            </div>
+                        </article>
+                    <% }); %>
+                <% } else { %>
+                    <p>You haven't posted any links yet.</p>
+                <% } %>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

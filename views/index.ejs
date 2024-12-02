@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nardelink</title>
+    <link rel="stylesheet" href="../public/css/style.css">
+    <script src="../public/js/script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Nardelink</h1>
+            <nav>
+                <% if (user) { %>
+                    <a href="/profile">Profile</a>
+                    <a href="/logout">Logout</a>
+                <% } else { %>
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                <% } %>
+            </nav>
+        </header>
+
+        <main>
+            <% if (user) { %>
+                <form id="add-link-form">
+                    <input type="text" name="title" placeholder="Link Title" required>
+                    <input type="url" name="url" placeholder="Link URL" required>
+                    <textarea name="description" placeholder="Link Description"></textarea>
+                    <button type="submit">Add Link</button>
+                </form>
+            <% } %>
+
+            <div id="links-container">
+                <% links.forEach(link => { %>
+                    <article class="link">
+                        <h2><a href="<%= link.url %>" target="_blank"><%= link.title %></a></h2>
+                        <p><%= link.description %></p>
+                        <div class="link-meta">
+                            <span>Posted by: <%= link.User.username %></span>
+                            <span class="likes">👍 <span class="like-count"><%= link.likes %></span></span>
+                            <button class="like-button" data-id="<%= link.id %>">Like</button>
+                            <button class="comment-button" data-id="<%= link.id %>">Comment</button>
+                        </div>
+                        <div class="comments-section" id="comments-<%= link.id %>"></div>
+                    </article>
+                <% }); %>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

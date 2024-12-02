@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: nardelink
+    env: node
+    buildCommand: npm install
+    startCommand: node app.js
+    envVars:
+      - key: DB_NAME
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_HOST
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: PORT
+        value: 3000
